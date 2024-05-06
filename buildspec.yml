@@ -9,7 +9,7 @@ phases:
 
       # Log in to ECR Public
       - echo Logging in to Amazon ECR Public...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2
+      - aws ecr-public get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2
 
       # Tag and push Docker image to ECR Public
       - echo Pushing Docker image to ECR Public...
