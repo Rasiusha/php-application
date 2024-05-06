@@ -1,21 +1,16 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      # Log in to AWS ECR using the default AWS CLI credentials
-      - $(aws ecr get-login --region us-east-1)
   build:
     commands:
+      # Build Docker image
       - echo Building Docker image...
-      # Build the Docker image using the Dockerfile in the current directory
-      - docker build -t aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2 .
-      # Tag the Docker image with the ECR repository URI
-      - docker tag $aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2:latest $aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2:$IMAGE_TAG
-  post_build:
-    commands:
+      - docker build -t aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2/myapp:latest .
+      
+      # Log in to ECR
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2
+
+      # Push Docker image to ECR
       - echo Pushing Docker image to ECR...
-      # Push the Docker image to AWS ECR
-      - docker push $aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2:$IMAGE_TAG
+      - docker push aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2 /myapp:latest
