@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       # Log in to AWS ECR using the default AWS CLI credentials
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
+      - $(aws ecr get-login --region us -east-1)
   build:
     commands:
       - echo Building Docker image...
