@@ -11,7 +11,7 @@ phases:
     commands:
       - echo Building Docker image...
       # Build the Docker image using the Dockerfile in the current directory
-      - docker build -t aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2 .
+      - docker build -t aws ecr-public get-login-password --region us -east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2 .
       # Tag the Docker image with the ECR repository URI
       - docker tag $aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2:latest $aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b5l5p7r2:$IMAGE_TAG
   post_build:
